@@ -4,7 +4,7 @@
 // Array is a finite set of homegeneous elements!
 // char variable takes 1 byte of memory
 // pointer variable takes 8 bytes of memory
-// 
+// token is created, on basis on space, \n -(enter), tab 
 
 //Task 1: reading the commmand --understand deeply, nature of \0
 //Task 2: after reading the string create the token of the string, and then traverse on the string! -- track of tokens
@@ -24,6 +24,8 @@
 // }
 
 // pointer - which stores the address of another variable
+// strtok - we have to pass cm, strtok- returns first address of token! (its scans the string , where ever it finds,[space, \n -(enter), tab] it creates the token, and first address of that token is returned!)
+// strtok(NULL, " \n\t") - it continues from the last position where it left off!
 #include <stdio.h>
 int main (){
     int x = 15;   // declared an integer variable
