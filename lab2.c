@@ -5,6 +5,17 @@
 // char variable takes 1 byte of memory
 // pointer variable takes 8 bytes of memory
 // token is created, on basis on space, \n -(enter), tab 
+// fgets is used to reading the string 
+// strlen is used to find the length of string
+// args - pointer to array
+// pointer - stores the address of another variable
+// execvp - used to execute the command
+// fork - used to create a new process
+// wait - used to wait for a process to complete
+// perror - used to print error message
+// strtok - used to create tokens from a string
+// _exit - used to exit a process
+// NULL - used to indicate the end of an array
 
 //Task 1: reading the commmand --understand deeply, nature of \0
 //Task 2: after reading the string create the token of the string, and then traverse on the string! -- track of tokens
@@ -59,8 +70,6 @@ void parse(char *cmd, char **args){
         args[++i] = strtok(NULL, " \t\n");
     args[i] = NULL;
 }
-
-
 
 // exicute the command using fork + exec
 
