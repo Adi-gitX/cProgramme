@@ -17,6 +17,18 @@
 // _exit - used to exit a process
 // NULL - used to indicate the end of an array
 
+
+//??commands in linux
+// wc - word count command in linux
+// ls - list command in linux
+// pwd - print working directory command in linux
+// cd - change directory command in linux
+// gcc - GNU Compiler Collection
+// fd(0)--> read 
+// fd(1)--> write
+// fd(2)--> error
+
+
 //Task 1: reading the commmand --understand deeply, nature of \0
 //Task 2: after reading the string create the token of the string, and then traverse on the string! -- track of tokens
 //Task 3: 
