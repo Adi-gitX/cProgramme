@@ -1,6 +1,6 @@
 //11 Topics
-// CPU Scheduling Algorithms
-// Input Handling for Processes
+// CPU Scheduling Algorithms --> like FCFS, SJF, SRTF 
+// Input Handling for Processes 
 // Arrival Time and Burst Time
 // First-Come-First-Served (FCFS)
 // Queue Management
@@ -11,7 +11,28 @@
 // Remaining Time Tracking
 // Gantt Chart Generation
 
-//2 id cards --> name, id gpa 
+//-----notes on CPU scheduling algorithms------->>
+// differences between fcfs fjs and srtf
+// FCFS : non preemptive, processes are executed in the order they arrive
+// SJF : non preemptive, processes with the shortest burst time are executed first
+// SRTF : preemptive, processes with the shortest remaining time are executed first, can interrupt running processes
+
+// input handling for processes - reading process details like process id, arrival time, burst time from user or file
+
+// arrival time - the time when a process arrives in the ready queue
+// burst time - the total time required by a process for execution on CPU
+// completion time - the time when a process completes its execution
+// turn around time - the total time taken by a process from arrival to completion (TAT = CT - AT)
+// waiting time - the total time a process spends in the ready queue (WT = TAT - BT)
+
+// queue management - managing the order of processes in the ready queue based on scheduling algorithm
+
+//preemption logic - in preemptive scheduling algorithms, a running process can be interrupted if a new process arrives with a shorter burst time or remaining time
+// remaining time tracking - keeping track of the remaining execution time for each process, especially important in preemptive algorithms like SRTF
+// gantt chart generation - a visual representation of the order in which processes are executed on the CPU, showing start and end times for each process!
+
+
+//2 id cards --> name, id gpa (example)
 // struct Student {
 //     char name[50];
 //     int id;
@@ -120,38 +141,48 @@
 //     int at, bt, ct, tat, wt;
 //     int remainingTime;
 // };   
-// void sortByArrival(struct Process proc[], int n) {
-//     for (int i = 0; i < n - 1; i++) {
-//         for (int j = 0; j < n - i - 1; j++) {
-//             if (proc[j].at > proc[j + 1].at) {
-//                 struct Process temp = proc[j];
-//                 proc[j] = proc[j + 1];
-//                 proc[j + 1] = temp;
-//             }
-//         }
-//     }
-// }    
-// void calculateTimes(struct Process proc[], int n) {
-//     int completed = 0, currentTime = 0;
+// void calculateTimesSJF(struct Process proc[], int n) {
+
+//     int completed = 0;
+//     int currentTime = 0;
+//     int is_completed[100] = {0};
+
+//     struct Process exec_order[100];
+
 //     while (completed < n) {
-//         int idx = -1, minBT = 1e9;
+
+//         int idx = -1;
+//         int min_bt = 100000;
+
 //         for (int i = 0; i < n; i++) {
-//             if (proc[i].at <= currentTime && proc[i].remainingTime > 0) {
-//                 if (proc[i].remainingTime < minBT) {
-//                     minBT = proc[i].remainingTime;
+//             if (!is_completed[i] && proc[i].at <= currentTime) {
+//                 if (proc[i].bt < min_bt) {
+//                     min_bt = proc[i].bt;
 //                     idx = i;
+//                 } else if (proc[i].bt == min_bt) {
+//                     if (proc[i].at < proc[idx].at) {
+//                         idx = i;
+//                     }
 //                 }
 //             }
 //         }
-//         if (idx != -1) {
-//             proc[idx].remainingTime--;
-//             if (proc[idx].remainingTime == 0) {
-//                 proc[idx].ct = currentTime + 1;
-//                 proc[idx].tat = proc[idx].ct - proc[idx].at;
-//                 proc[idx].wt = proc[idx].tat - proc[idx].bt;
-//                 completed++;
-//             }
+
+//         if (idx == -1) {
+//             currentTime++;
+//             continue;
 //         }
-//         currentTime++;
+
+//         proc[idx].ct = currentTime + proc[idx].bt;
+//         proc[idx].tat = proc[idx].ct - proc[idx].at;
+//         proc[idx].wt = proc[idx].tat - proc[idx].bt;
+
+//         currentTime = proc[idx].ct;
+//         exec_order[completed] = proc[idx];
+//         is_completed[idx] = 1;
+//         completed++;
+//     }
+
+//     for (int i = 0; i < n; i++) {
+//         proc[i] = exec_order[i];
 //     }
 // }
